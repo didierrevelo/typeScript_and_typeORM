@@ -1,0 +1,55 @@
+{
+  "name": "typescript_and_typeorm",
+  "version": "1.0.0",
+  "description": "curso de node con typescript y typeORM",
+  "main": "app.js",
+  "scripts": {
+    "start": "tsc && node build/server.js",
+    "dev": "tsc && concurrently \"tsc -w\" \" nodemon build/server.js\"",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/didierrevelo/typeScript_and_typeORM.git"
+  },
+  "author": "Didier Revelo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/didierrevelo/typeScript_and_typeORM/issues"
+  },
+  "homepage": "https://github.com/didierrevelo/typeScript_and_typeORM#readme",
+  "dependencies": {
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
+    "swagger-jsdoc": "^6.2.7",
+    "swagger-ui-express": "^4.6.0",
+    "typeorm": "^0.3.11",
+    "typeorm-naming-strategies": "^4.1.0",
+    "typescript": "^4.9.4"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.15",
+    "@types/morgan": "^1.9.4",
+    "@types/swagger-jsdoc": "^6.0.1",
+    "@types/swagger-ui-express": "^4.1.3",
+    "concurrently": "^7.6.0",
+    "nodemon": "^2.0.20",
+    "ts-node-dev": "^2.0.0",
+    "ts-standard": "^12.0.2",
+    "tslint": "^6.1.3"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    },
+    "extends": [
+      "./node_modules/ts-standard/eslintrc.json"
+    ]
+  }
+}
