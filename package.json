@@ -6,7 +6,8 @@
   "scripts": {
     "start": "tsc && node build/server.js",
     "dev": "tsc && concurrently \"tsc -w\" \" nodemon build/server.js\"",
-    "test": "test"
+    "test": "test",
+    "prod": "SET NODE_ENV=production && npm start"
   },
   "repository": {
     "type": "git",
