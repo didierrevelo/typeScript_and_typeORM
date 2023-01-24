@@ -11,13 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserEntity = void 0;
 const typeorm_1 = require("typeorm");
-const base_entity_1 = require("../config/base.entity");
+const base_entity_1 = require("../../config/base.entity");
+const customer_entity_1 = require("../../customer/entities/customer.entity");
 let UserEntity = class UserEntity extends base_entity_1.BaseEntity {
 };
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], UserEntity.prototype, "username", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
@@ -27,13 +24,29 @@ __decorate([
     __metadata("design:type", String)
 ], UserEntity.prototype, "lastname", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
+    (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], UserEntity.prototype, "jobPosition", void 0);
+], UserEntity.prototype, "email", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], UserEntity.prototype, "password", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], UserEntity.prototype, "city", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], UserEntity.prototype, "province", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
 ], UserEntity.prototype, "numberPhone", void 0);
+__decorate([
+    (0, typeorm_1.OneToOne)(() => customer_entity_1.CustomerEntity, (customer) => customer.user),
+    __metadata("design:type", customer_entity_1.CustomerEntity)
+], UserEntity.prototype, "customer", void 0);
 UserEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'user' })
 ], UserEntity);
