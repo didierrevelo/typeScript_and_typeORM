@@ -1,6 +1,6 @@
 /* eslint-disable n/no-path-concat */
 import * as dotenv from 'dotenv'
-import { ConnectionOptions } from 'typeorm'
+import { Connection, ConnectionOptions, createConnection } from 'typeorm'
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 
 export abstract class ConfigServer {
@@ -43,9 +43,13 @@ export abstract class ConfigServer {
       database: this.getEnvironment('DB_DATABASE'),
       entities: [__dirname + '/../**/*.entity{.ts,.js}'],
       migrations: [__dirname + '/../../migrations/*{.ts,.js}'],
-      synchronize: true,
+      synchronize: false,
       logging: false,
       namingStrategy: new SnakeNamingStrategy()
     }
+  }
+
+  async dbConnect (): Promise<Connection> {
+    return await createConnection(this.typeORMConfig)
   }
 }
