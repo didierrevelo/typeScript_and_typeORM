@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { BaseRouter } from '../shared/router'
 import { ProductController } from './controller/product.controller'
+
 export class ProductRouter extends BaseRouter<ProductController> {
   constructor () {
     super(ProductController)
