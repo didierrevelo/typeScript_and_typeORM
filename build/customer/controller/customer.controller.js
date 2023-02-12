@@ -9,69 +9,69 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserController = void 0;
-const user_service_1 = require("../services/user.service");
-class UserController {
-    constructor(userServices = new user_service_1.UserServices()) {
-        this.userServices = userServices;
+exports.CustomerController = void 0;
+const customer_services_1 = require("../services/customer.services");
+class CustomerController {
+    constructor(customerService = new customer_services_1.CustomerService()) {
+        this.customerService = customerService;
     }
-    getUsers(req, res) {
+    getCustomers(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const data = yield this.userServices.findAllUser();
+                const data = yield this.customerService.findAllCustomers();
                 res.status(200).json(data);
             }
-            catch (error) {
-                console.error(error);
+            catch (e) {
+                console.error(e);
             }
         });
     }
-    getUsersById(req, res) {
+    getCustomerById(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             try {
-                const data = yield this.userServices.findUserById(id);
+                const data = yield this.customerService.findCustomerById(id);
                 res.status(200).json(data);
             }
-            catch (error) {
-                console.error(error);
+            catch (e) {
+                console.error(e);
             }
         });
     }
-    createUser(req, res) {
+    createCustomer(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const data = yield this.userServices.createUser(req.body);
+                const data = yield this.customerService.createCustomer(req.body);
                 res.status(200).json(data);
             }
-            catch (error) {
-                console.error(error);
+            catch (e) {
+                console.error(e);
             }
         });
     }
-    updateUser(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const { id } = req.params;
-            try {
-                const data = yield this.userServices.updateUser(id, req.body);
-                res.status(200).json(data);
-            }
-            catch (error) {
-                console.error(error);
-            }
-        });
-    }
-    deleteUser(req, res) {
+    updateCustomer(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             try {
-                const data = yield this.userServices.deleteUser(id);
+                const data = yield this.customerService.updateCustomer(id, req.body);
                 res.status(200).json(data);
             }
-            catch (error) {
-                console.error(error);
+            catch (e) {
+                console.error(e);
+            }
+        });
+    }
+    deleteCustomer(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            try {
+                const data = yield this.customerService.deleteCustomer(id);
+                res.status(200).json(data);
+            }
+            catch (e) {
+                console.error(e);
             }
         });
     }
 }
-exports.UserController = UserController;
+exports.CustomerController = CustomerController;

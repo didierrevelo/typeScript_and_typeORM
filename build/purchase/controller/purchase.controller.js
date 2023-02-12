@@ -9,16 +9,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserController = void 0;
-const user_service_1 = require("../services/user.service");
-class UserController {
-    constructor(userServices = new user_service_1.UserServices()) {
-        this.userServices = userServices;
+exports.PurchaseController = void 0;
+const purchase_service_1 = require("../services/purchase.service");
+class PurchaseController {
+    constructor(purchaseService = new purchase_service_1.PurchaseService()) {
+        this.purchaseService = purchaseService;
     }
-    getUsers(req, res) {
+    getPurchases(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const data = yield this.userServices.findAllUser();
+                const data = yield this.purchaseService.findAllPurchases();
                 res.status(200).json(data);
             }
             catch (error) {
@@ -26,11 +26,11 @@ class UserController {
             }
         });
     }
-    getUsersById(req, res) {
+    getPurchaseById(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             try {
-                const data = yield this.userServices.findUserById(id);
+                const data = yield this.purchaseService.findPurchaseById(id);
                 res.status(200).json(data);
             }
             catch (error) {
@@ -38,10 +38,10 @@ class UserController {
             }
         });
     }
-    createUser(req, res) {
+    createPurchase(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const data = yield this.userServices.createUser(req.body);
+                const data = yield this.purchaseService.createPurchase(req.body);
                 res.status(200).json(data);
             }
             catch (error) {
@@ -49,23 +49,23 @@ class UserController {
             }
         });
     }
-    updateUser(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const { id } = req.params;
-            try {
-                const data = yield this.userServices.updateUser(id, req.body);
-                res.status(200).json(data);
-            }
-            catch (error) {
-                console.error(error);
-            }
-        });
-    }
-    deleteUser(req, res) {
+    updatePurchase(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             try {
-                const data = yield this.userServices.deleteUser(id);
+                const data = yield this.purchaseService.updatePurchase(id, req.body);
+                res.status(200).json(data);
+            }
+            catch (error) {
+                console.error(error);
+            }
+        });
+    }
+    deletePurchase(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            try {
+                const data = yield this.purchaseService.deletePurchase(id);
                 res.status(200).json(data);
             }
             catch (error) {
@@ -74,4 +74,4 @@ class UserController {
         });
     }
 }
-exports.UserController = UserController;
+exports.PurchaseController = PurchaseController;

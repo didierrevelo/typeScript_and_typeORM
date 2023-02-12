@@ -9,69 +9,69 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserController = void 0;
-const user_service_1 = require("../services/user.service");
-class UserController {
-    constructor(userServices = new user_service_1.UserServices()) {
-        this.userServices = userServices;
+exports.ProductController = void 0;
+const product_service_1 = require("../services/product.service");
+class ProductController {
+    constructor(productService = new product_service_1.ProductService()) {
+        this.productService = productService;
     }
-    getUsers(req, res) {
+    getProducts(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const data = yield this.userServices.findAllUser();
+                const data = yield this.productService.findAllProducts();
                 res.status(200).json(data);
             }
-            catch (error) {
-                console.error(error);
+            catch (e) {
+                console.error(e);
             }
         });
     }
-    getUsersById(req, res) {
+    getProductById(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             try {
-                const data = yield this.userServices.findUserById(id);
+                const data = yield this.productService.findProductById(id);
                 res.status(200).json(data);
             }
-            catch (error) {
-                console.error(error);
+            catch (e) {
+                console.error(e);
             }
         });
     }
-    createUser(req, res) {
+    createProduct(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const data = yield this.userServices.createUser(req.body);
+                const data = yield this.productService.createProduct(req.body);
                 res.status(200).json(data);
             }
-            catch (error) {
-                console.error(error);
+            catch (e) {
+                console.error(e);
             }
         });
     }
-    updateUser(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const { id } = req.params;
-            try {
-                const data = yield this.userServices.updateUser(id, req.body);
-                res.status(200).json(data);
-            }
-            catch (error) {
-                console.error(error);
-            }
-        });
-    }
-    deleteUser(req, res) {
+    updateProduct(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             try {
-                const data = yield this.userServices.deleteUser(id);
+                const data = yield this.productService.updateProduct(id, req.body);
                 res.status(200).json(data);
             }
-            catch (error) {
-                console.error(error);
+            catch (e) {
+                console.error(e);
+            }
+        });
+    }
+    deleteProduct(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            try {
+                const data = yield this.productService.deleteProduct(id);
+                res.status(200).json(data);
+            }
+            catch (e) {
+                console.error(e);
             }
         });
     }
 }
-exports.UserController = UserController;
+exports.ProductController = ProductController;
