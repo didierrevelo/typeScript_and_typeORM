@@ -30,7 +30,7 @@ __decorate([
 ], UserEntity.prototype, "email", void 0);
 __decorate([
     (0, class_transformer_1.Exclude)(),
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ select: false }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "password", void 0);
 __decorate([

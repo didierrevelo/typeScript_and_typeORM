@@ -11,18 +11,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const user_service_1 = require("../services/user.service");
+const http_respose_1 = require("../../shared/response/http.respose");
 class UserController {
-    constructor(userServices = new user_service_1.UserServices()) {
+    constructor(userServices = new user_service_1.UserServices(), httpResponse = new http_respose_1.HttpResponse()) {
         this.userServices = userServices;
+        this.httpResponse = httpResponse;
     }
     getUsers(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const data = yield this.userServices.findAllUser();
-                res.status(200).json(data);
+                if (data.length === 0) {
+                    return this.httpResponse.NotFound(res, 'Data users cannot found data');
+                }
+                return this.httpResponse.Ok(res, data);
             }
             catch (error) {
-                console.error(error);
+                return this.httpResponse.Error(res, error);
             }
         });
     }
@@ -31,10 +36,13 @@ class UserController {
             const { id } = req.params;
             try {
                 const data = yield this.userServices.findUserById(id);
-                res.status(200).json(data);
+                if (data == null) {
+                    return this.httpResponse.NotFound(res, 'Data user cannot found');
+                }
+                return this.httpResponse.Ok(res, data);
             }
             catch (error) {
-                console.error(error);
+                return this.httpResponse.Error(res, error);
             }
         });
     }
@@ -42,10 +50,10 @@ class UserController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const data = yield this.userServices.createUser(req.body);
-                res.status(200).json(data);
+                return this.httpResponse.Ok(res, data);
             }
             catch (error) {
-                console.error(error);
+                return this.httpResponse.Error(res, error);
             }
         });
     }
@@ -54,10 +62,14 @@ class UserController {
             const { id } = req.params;
             try {
                 const data = yield this.userServices.updateUser(id, req.body);
-                res.status(200).json(data);
+                const dataRequest = yield this.userServices.findUserById(id);
+                if (data.affected === 0) {
+                    return this.httpResponse.NotFound(res, 'User cannot be upadated');
+                }
+                return this.httpResponse.Ok(res, dataRequest);
             }
             catch (error) {
-                console.error(error);
+                return this.httpResponse.Error(res, error);
             }
         });
     }
@@ -66,10 +78,13 @@ class UserController {
             const { id } = req.params;
             try {
                 const data = yield this.userServices.deleteUser(id);
-                res.status(200).json(data);
+                if (data.affected === 0) {
+                    return this.httpResponse.NotFound(res, 'User cannot be deleted');
+                }
+                return this.httpResponse.Ok(res, `Delete User with ID: ${id}`);
             }
             catch (error) {
-                console.error(error);
+                return this.httpResponse.Error(res, error);
             }
         });
     }

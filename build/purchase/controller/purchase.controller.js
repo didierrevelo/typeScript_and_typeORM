@@ -11,18 +11,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PurchaseController = void 0;
 const purchase_service_1 = require("../services/purchase.service");
+const http_respose_1 = require("../../shared/response/http.respose");
 class PurchaseController {
-    constructor(purchaseService = new purchase_service_1.PurchaseService()) {
+    constructor(purchaseService = new purchase_service_1.PurchaseService(), httpResponse = new http_respose_1.HttpResponse()) {
         this.purchaseService = purchaseService;
+        this.httpResponse = httpResponse;
     }
     getPurchases(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const data = yield this.purchaseService.findAllPurchases();
-                res.status(200).json(data);
+                if (data.length === 0) {
+                    return this.httpResponse.NotFound(res, 'Data purchases cannot found data');
+                }
+                return this.httpResponse.Ok(res, data);
             }
             catch (error) {
-                console.error(error);
+                return this.httpResponse.Error(res, error);
             }
         });
     }
@@ -31,10 +36,13 @@ class PurchaseController {
             const { id } = req.params;
             try {
                 const data = yield this.purchaseService.findPurchaseById(id);
-                res.status(200).json(data);
+                if (data == null) {
+                    return this.httpResponse.NotFound(res, 'Data purchase cannot found');
+                }
+                return this.httpResponse.Ok(res, data);
             }
             catch (error) {
-                console.error(error);
+                return this.httpResponse.Error(res, error);
             }
         });
     }
@@ -54,10 +62,14 @@ class PurchaseController {
             const { id } = req.params;
             try {
                 const data = yield this.purchaseService.updatePurchase(id, req.body);
-                res.status(200).json(data);
+                const dataRequest = yield this.purchaseService.findPurchaseById(id);
+                if (data.affected === 0) {
+                    return this.httpResponse.NotFound(res, 'Purchase cannot be upadated');
+                }
+                return this.httpResponse.Ok(res, dataRequest);
             }
             catch (error) {
-                console.error(error);
+                return this.httpResponse.Error(res, error);
             }
         });
     }
@@ -66,10 +78,13 @@ class PurchaseController {
             const { id } = req.params;
             try {
                 const data = yield this.purchaseService.deletePurchase(id);
-                res.status(200).json(data);
+                if (data.affected === 0) {
+                    return this.httpResponse.NotFound(res, 'Purchase cannot be deleted');
+                }
+                return this.httpResponse.Ok(res, `Delete Purchase with ID: ${id}`);
             }
             catch (error) {
-                console.error(error);
+                return this.httpResponse.Error(res, error);
             }
         });
     }

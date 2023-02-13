@@ -16,7 +16,7 @@ class CategoryService extends base_service_1.BaseService {
     constructor() {
         super(category_entity_1.CategoryEntity);
     }
-    findAllCategoties() {
+    findAllCategories() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (yield this.execRepository).find();
         });

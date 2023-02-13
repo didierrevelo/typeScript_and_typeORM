@@ -20,11 +20,11 @@ class PurchaseProductRouter extends router_1.BaseRouter {
     }
     routes() {
         return __awaiter(this, void 0, void 0, function* () {
-            this.router.get('/purchaseProducts', (req, res) => __awaiter(this, void 0, void 0, function* () { return yield this.controller.getPurchaseProducts(req, res); }));
+            this.router.get('/purchaseProducts', (req, res) => __awaiter(this, void 0, void 0, function* () { return yield this.controller.getPurchasesProduct(req, res); }));
             this.router.get('/purchaseProduct/:id', (req, res) => __awaiter(this, void 0, void 0, function* () { return yield this.controller.getPurchaseProductById(req, res); }));
             this.router.post('/createPurchaseProduct', (req, res) => __awaiter(this, void 0, void 0, function* () { return yield this.controller.createPurchaseProduct(req, res); }));
             this.router.put('/updatePurchaseProduct/:id', (req, res) => __awaiter(this, void 0, void 0, function* () { return yield this.controller.updatePurchaseProduct(req, res); }));
-            this.router.delete('/deletePurchaseProduct/:id', (req, res) => this.controller.deletePurchaseProduct(req, res));
+            this.router.delete('/deletePurchaseProduct/:id', (req, res) => __awaiter(this, void 0, void 0, function* () { return yield this.controller.deletePurchaseProduct(req, res); }));
         });
     }
 }

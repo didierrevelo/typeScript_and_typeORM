@@ -11,18 +11,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CustomerController = void 0;
 const customer_services_1 = require("../services/customer.services");
+const http_respose_1 = require("../../shared/response/http.respose");
 class CustomerController {
-    constructor(customerService = new customer_services_1.CustomerService()) {
+    constructor(customerService = new customer_services_1.CustomerService(), httpResponse = new http_respose_1.HttpResponse()) {
         this.customerService = customerService;
+        this.httpResponse = httpResponse;
     }
     getCustomers(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const data = yield this.customerService.findAllCustomers();
-                res.status(200).json(data);
+                if (data.length === 0) {
+                    return this.httpResponse.NotFound(res, 'Data customers cannot found data');
+                }
+                return this.httpResponse.Ok(res, data);
             }
-            catch (e) {
-                console.error(e);
+            catch (error) {
+                return this.httpResponse.Error(res, error);
             }
         });
     }
@@ -31,10 +36,13 @@ class CustomerController {
             const { id } = req.params;
             try {
                 const data = yield this.customerService.findCustomerById(id);
-                res.status(200).json(data);
+                if (data == null) {
+                    return this.httpResponse.NotFound(res, 'Data customer cannot found');
+                }
+                return this.httpResponse.Ok(res, data);
             }
-            catch (e) {
-                console.error(e);
+            catch (error) {
+                return this.httpResponse.Error(res, error);
             }
         });
     }
@@ -54,10 +62,14 @@ class CustomerController {
             const { id } = req.params;
             try {
                 const data = yield this.customerService.updateCustomer(id, req.body);
-                res.status(200).json(data);
+                const dataRequest = yield this.customerService.findCustomerById(id);
+                if (data.affected === 0) {
+                    return this.httpResponse.NotFound(res, 'customer cannot be upadated');
+                }
+                return this.httpResponse.Ok(res, dataRequest);
             }
-            catch (e) {
-                console.error(e);
+            catch (error) {
+                return this.httpResponse.Error(res, error);
             }
         });
     }
@@ -66,10 +78,13 @@ class CustomerController {
             const { id } = req.params;
             try {
                 const data = yield this.customerService.deleteCustomer(id);
-                res.status(200).json(data);
+                if (data.affected === 0) {
+                    return this.httpResponse.NotFound(res, 'customer cannot be deleted');
+                }
+                return this.httpResponse.Ok(res, `Delete Customer with ID: ${id}`);
             }
-            catch (e) {
-                console.error(e);
+            catch (error) {
+                return this.httpResponse.Error(res, error);
             }
         });
     }
