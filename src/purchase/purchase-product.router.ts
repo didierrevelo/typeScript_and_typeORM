@@ -10,7 +10,7 @@ export class PurchaseProductRouter extends BaseRouter<PurchaseProductController>
 
   async routes (): Promise<any> {
     this.router.get('/purchaseProducts', async (req, res) =>
-      await this.controller.getPurchaseProducts(req, res)
+      await this.controller.getPurchasesProduct(req, res)
     )
     this.router.get('/purchaseProduct/:id', async (req, res) =>
       await this.controller.getPurchaseProductById(req, res)
@@ -21,8 +21,8 @@ export class PurchaseProductRouter extends BaseRouter<PurchaseProductController>
     this.router.put('/updatePurchaseProduct/:id', async (req, res) =>
       await this.controller.updatePurchaseProduct(req, res)
     )
-    this.router.delete('/deletePurchaseProduct/:id', (req, res) =>
-      this.controller.deletePurchaseProduct(req, res)
+    this.router.delete('/deletePurchaseProduct/:id', async (req, res) =>
+      await this.controller.deletePurchaseProduct(req, res)
     )
   }
 }

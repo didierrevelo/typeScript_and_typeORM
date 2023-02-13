@@ -8,7 +8,7 @@ export class CategoryService extends BaseService<CategoryEntity> {
     super(CategoryEntity)
   }
 
-  async findAllCategoties (): Promise<CategoryEntity[]> {
+  async findAllCategories (): Promise<CategoryEntity[]> {
     return await (await this.execRepository).find()
   }
 
@@ -24,10 +24,7 @@ export class CategoryService extends BaseService<CategoryEntity> {
     return await (await this.execRepository).delete({ id })
   }
 
-  async updateCategory (
-    id: string,
-    infoUpdate: CategoryDTO
-  ): Promise<UpdateResult> {
+  async updateCategory (id: string, infoUpdate: CategoryDTO): Promise<UpdateResult> {
     return await (await this.execRepository).update(id, infoUpdate)
   }
 }

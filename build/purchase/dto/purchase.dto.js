@@ -9,31 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PurchaseEntity = void 0;
-const typeorm_1 = require("typeorm");
-const base_entity_1 = require("../../config/base.entity");
+exports.PurchaseDTO = void 0;
+const class_validator_1 = require("class-validator");
+const base_dto_1 = require("../../config/base.dto");
 const customer_entity_1 = require("../../customer/entities/customer.entity");
-const purchases_product_entity_1 = require("./purchases-product.entity");
-let PurchaseEntity = class PurchaseEntity extends base_entity_1.BaseEntity {
-};
+class PurchaseDTO extends base_dto_1.BaseDTO {
+}
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], PurchaseEntity.prototype, "status", void 0);
+], PurchaseDTO.prototype, "status", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], PurchaseEntity.prototype, "paymentMethod", void 0);
+], PurchaseDTO.prototype, "paymentMethod", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => customer_entity_1.CustomerEntity, (customer) => customer.purchases),
-    (0, typeorm_1.JoinColumn)({ name: 'customer_id' }),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", customer_entity_1.CustomerEntity)
-], PurchaseEntity.prototype, "customer", void 0);
-__decorate([
-    (0, typeorm_1.OneToMany)(() => purchases_product_entity_1.PurchaseProductEntity, (purchaseProduct) => purchaseProduct.product),
-    __metadata("design:type", Array)
-], PurchaseEntity.prototype, "purchaseProduct", void 0);
-PurchaseEntity = __decorate([
-    (0, typeorm_1.Entity)({ name: 'purchase' })
-], PurchaseEntity);
-exports.PurchaseEntity = PurchaseEntity;
+], PurchaseDTO.prototype, "customer", void 0);
+exports.PurchaseDTO = PurchaseDTO;

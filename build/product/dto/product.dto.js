@@ -9,35 +9,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProductEntity = void 0;
-const typeorm_1 = require("typeorm");
-const base_entity_1 = require("../../config/base.entity");
+exports.ProductDTO = void 0;
+const class_validator_1 = require("class-validator");
+const base_dto_1 = require("../../config/base.dto");
 const category_entity_1 = require("../../category/entities/category.entity");
-const purchases_product_entity_1 = require("../../purchase/entities/purchases-product.entity");
-let ProductEntity = class ProductEntity extends base_entity_1.BaseEntity {
-};
+class ProductDTO extends base_dto_1.BaseDTO {
+}
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], ProductEntity.prototype, "productName", void 0);
+], ProductDTO.prototype, "productName", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], ProductEntity.prototype, "description", void 0);
+], ProductDTO.prototype, "description", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Number)
-], ProductEntity.prototype, "price", void 0);
+], ProductDTO.prototype, "price", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => category_entity_1.CategoryEntity, (category) => category.products),
-    (0, typeorm_1.JoinColumn)({ name: 'category_id' }),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", category_entity_1.CategoryEntity)
-], ProductEntity.prototype, "category", void 0);
-__decorate([
-    (0, typeorm_1.OneToMany)(() => purchases_product_entity_1.PurchaseProductEntity, (purchaseProduct) => purchaseProduct.product),
-    __metadata("design:type", Array)
-], ProductEntity.prototype, "purchaseProduct", void 0);
-ProductEntity = __decorate([
-    (0, typeorm_1.Entity)({ name: 'product' })
-], ProductEntity);
-exports.ProductEntity = ProductEntity;
+], ProductDTO.prototype, "category", void 0);
+exports.ProductDTO = ProductDTO;

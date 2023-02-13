@@ -13,6 +13,7 @@ exports.UserEntity = void 0;
 const typeorm_1 = require("typeorm");
 const base_entity_1 = require("../../config/base.entity");
 const customer_entity_1 = require("../../customer/entities/customer.entity");
+const class_transformer_1 = require("class-transformer");
 let UserEntity = class UserEntity extends base_entity_1.BaseEntity {
 };
 __decorate([
@@ -22,13 +23,14 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], UserEntity.prototype, "lastname", void 0);
+], UserEntity.prototype, "lastName", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], UserEntity.prototype, "email", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, class_transformer_1.Exclude)(),
+    (0, typeorm_1.Column)({ select: false }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "password", void 0);
 __decorate([
@@ -40,7 +42,7 @@ __decorate([
     __metadata("design:type", String)
 ], UserEntity.prototype, "province", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)('bigint'),
     __metadata("design:type", Number)
 ], UserEntity.prototype, "numberPhone", void 0);
 __decorate([

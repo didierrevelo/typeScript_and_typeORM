@@ -9,26 +9,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BaseEntity = void 0;
-const typeorm_1 = require("typeorm");
-class BaseEntity {
+exports.CategoryDTO = void 0;
+const class_validator_1 = require("class-validator");
+const base_dto_1 = require("../../config/base.dto");
+class CategoryDTO extends base_dto_1.BaseDTO {
 }
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], BaseEntity.prototype, "id", void 0);
-__decorate([
-    (0, typeorm_1.CreateDateColumn)({
-        name: 'created_at',
-        type: 'timestamp'
-    }),
-    __metadata("design:type", Date)
-], BaseEntity.prototype, "createdAd", void 0);
-__decorate([
-    (0, typeorm_1.UpdateDateColumn)({
-        name: 'updated_at',
-        type: 'timestamp'
-    }),
-    __metadata("design:type", Date)
-], BaseEntity.prototype, "updatedAt", void 0);
-exports.BaseEntity = BaseEntity;
+], CategoryDTO.prototype, "categoryName", void 0);
+exports.CategoryDTO = CategoryDTO;
